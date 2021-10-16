@@ -1,11 +1,11 @@
 {
-  "target": "privoxy:8118",
+  "remoteaddr": "<kcptun-server>:29900",
   "key": "it's a secrect",
   "crypt": "aes",
   "mode": "fast",
   "mtu": 1400,
-  "sndwnd": 2048,
-  "rcvwnd": 2048,
+  "sndwnd": 128,
+  "rcvwnd": 1024,
   "datashard": 10,
   "parityshard": 3,
   "dscp": 46,
@@ -20,7 +20,7 @@
   "smuxbuf": 16777217,
   "streambuf": 2097152,
   "keepalive": 10,
-  "pprof":false,
-  "quiet":false,
-  "tcp":false
+  "autoexpire": 1800,
+  "quiet": false,
+  "tcp": false
 }
