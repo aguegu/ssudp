@@ -1,0 +1,14 @@
+{
+  "name": "hoot",
+  "version": "0.1.0",
+  "description": "a proxy inspired by meow",
+  "main": "src/index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "aGuegu <weihong.guan@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "http-proxy": "^1.18.1"
+  }
+}
