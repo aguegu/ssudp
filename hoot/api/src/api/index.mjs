@@ -32,5 +32,9 @@ export default async () => {
     res.sendFile(path.resolve(path.join(config.get('pac'), 'whitelist.pac')));
   });
 
+  api.get('/pac/gfwlist.pac', (req, res) => {
+    res.sendFile(path.resolve(path.join(config.get('pac'), 'gfwlist.pac')));
+  });
+
   return Promise.resolve(api);
 };
