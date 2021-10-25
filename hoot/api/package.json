@@ -1,0 +1,28 @@
+{
+  "name": "hoot",
+  "version": "0.1.0",
+  "description": "a proxy inspired by meow",
+  "main": "src/index.mjs",
+  "scripts": {
+    "lint": "eslint --ext .mjs src --fix",
+    "dev": "NODE_ENV=development nodemon -w src -w config.yaml -x 'npm run lint && node --experimental-json-modules src/index.mjs'",
+    "refresh-build": "json -I -f package.json -e 'this.build=Date.now()'"
+  },
+  "author": "aGuegu <weihong.guan@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@godaddy/terminus": "^4.9.0",
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "express-winston": "^4.2.0",
+    "lowdb": "^1.0.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.25.2",
+    "nodemon": "^2.0.14"
+  },
+  "build": 1635179803480
+}
