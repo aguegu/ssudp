@@ -3,6 +3,7 @@ app-privoxy:
 
 app-kcptun:
 	docker build -t aguegu/kcptun ./kcptun
+	docker push aguegu/kcptun
 
 privoxy:
 	docker run -d --name privoxy --restart=unless-stopped aguegu/privoxy
