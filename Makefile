@@ -1,5 +1,7 @@
+apps:
+	docker build -t aguegu/privoxy ./privoxy
+
 privoxy:
-	#docker build -t aguegu/privoxy ./privoxy
 	docker run -d --name privoxy --restart=unless-stopped aguegu/privoxy
 
 kcptun-server:
@@ -17,7 +19,3 @@ clean:
 	docker rm kcptun | true
 
 .PHONY: app kcptun-server kcptun-client clean
-
-
-	# EXPOSE 29900/udp
-	# EXPOSE 12948
