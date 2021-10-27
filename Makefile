@@ -18,4 +18,4 @@ clean:
 	docker stop kcptun | true
 	docker rm kcptun | true
 
-.PHONY: app kcptun-server kcptun-client clean
+.PHONY: app privoxy kcptun-server kcptun-client clean
