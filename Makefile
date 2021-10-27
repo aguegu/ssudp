@@ -1,5 +1,8 @@
-apps:
+app-privoxy:
 	docker build -t aguegu/privoxy ./privoxy
+
+app-kcptun:
+	docker build -t aguegu/kcptun ./kcptun
 
 privoxy:
 	docker run -d --name privoxy --restart=unless-stopped aguegu/privoxy
@@ -18,4 +21,4 @@ clean:
 	docker stop kcptun | true
 	docker rm kcptun | true
 
-.PHONY: app privoxy kcptun-server kcptun-client clean
+.PHONY: app-privoxy app-kcptun privoxy kcptun-server kcptun-client clean
