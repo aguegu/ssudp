@@ -15,7 +15,7 @@ app-privoxy:
 
 app-kcptun:
 	docker build -t aguegu/kcptun:latest-${PLATFORM} --build-arg arch=${ARCH} ./kcptun
-	docker push aguegu/kcptun
+	docker push aguegu/kcptun::latest-${PLATFORM}
 	# docker buildx build --push --platform ${PLATFORM} --tag aguegu/kcptun --build-arg arch=${ARCH} ./kcptun
 
 privoxy:
