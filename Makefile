@@ -1,9 +1,21 @@
+ARCHITECTURE := amd64
+
+ARCH != uname -m
+ifeq ($(ARCH), armv7l)
+        ARCHITECTURE := arm32
+else ifeq ($(ARCH), aarch64)
+        ARCHITECTURE := arm64
+endif
+
+
 app-privoxy:
 	docker build -t aguegu/privoxy ./privoxy
 
 app-kcptun:
-	docker build -t aguegu/kcptun ./kcptun
-	docker push aguegu/kcptun
+	# docker build -t aguegu/kcptun ./kcptun
+	# docker push aguegu/kcptun
+	docker buildx build --push --platform linux/amd64 --tag aguegu/kcptun ./kcptun
+
 
 privoxy:
 	docker run -d --name privoxy --restart=unless-stopped aguegu/privoxy
