@@ -1,22 +1,22 @@
 ARCH := amd64
-PLATFORM := linux/amd64
+PLATFORM := amd64
 
 ARCHITECTURE != uname -m
 ifeq ($(ARCHITECTURE), armv7l)
   ARCH := arm7
-	PLATFORM := linux/arm/v7
+	PLATFORM := arm32v7
 else ifeq ($(ARCHITECTURE), aarch64)
   ARCH := arm64
-	PLATFORM := linux/arm64/v8
+	PLATFORM := arm64/v8
 endif
 
 app-privoxy:
 	docker build -t aguegu/privoxy ./privoxy
 
 app-kcptun:
-	# docker build -t aguegu/kcptun ./kcptun
-	# docker push aguegu/kcptun
-	docker buildx build --push --platform ${PLATFORM} --tag aguegu/kcptun --build-arg arch=${ARCH} ./kcptun
+	docker build -t aguegu/kcptun:latest-${PLATFORM} --build-arg arch=${ARCH} ./kcptun
+	docker push aguegu/kcptun
+	# docker buildx build --push --platform ${PLATFORM} --tag aguegu/kcptun --build-arg arch=${ARCH} ./kcptun
 
 privoxy:
 	docker run -d --name privoxy --restart=unless-stopped aguegu/privoxy
