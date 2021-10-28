@@ -7,7 +7,7 @@ ifeq ($(ARCHITECTURE), armv7l)
 	PLATFORM := linux/arm32v7
 else ifeq ($(ARCHITECTURE), aarch64)
   ARCH := arm64
-	PLATFORM := linux/arm64v8
+	PLATFORM := linux/arm64/v8
 endif
 
 app-privoxy:
