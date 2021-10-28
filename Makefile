@@ -19,10 +19,10 @@ app-kcptun:
 	# docker buildx build --push --platform ${PLATFORM} --tag aguegu/kcptun --build-arg arch=${ARCH} ./kcptun
 
 manifest-kcptun:
-	docker manifest create aguegu/kcptun:latest \
-		--amend aguegu/kcptun:latest-amd64 \
-		--amend aguegu/kcptun:latest-arm32v7 \
-		--amend aguegu/kcptun:latest-arm64v8
+	docker manifest create --amend aguegu/kcptun:latest \
+		aguegu/kcptun:latest-amd64 \
+		aguegu/kcptun:latest-arm32v7 \
+		aguegu/kcptun:latest-arm64v8
 	docker manifest push aguegu/kcptun:latest
 
 privoxy:
