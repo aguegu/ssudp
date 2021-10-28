@@ -4,7 +4,7 @@ PLATFORM := linux/amd64
 ARCHITECTURE != uname -m
 ifeq ($(ARCHITECTURE), armv7l)
   ARCH := arm32
-	PLATFORM := linux/arm32v7
+	PLATFORM := linux/arm/v7
 else ifeq ($(ARCHITECTURE), aarch64)
   ARCH := arm64
 	PLATFORM := linux/arm64/v8
