@@ -21,7 +21,8 @@ app-kcptun:
 manifest-kcptun:
 	docker manifest create aguegu/kcptun:latest \
 		--amend aguegu/kcptun:latest-amd64 \
-		--amend aguegu/kcptun:latest-arm32v7
+		--amend aguegu/kcptun:latest-arm32v7 \
+		--amend aguegu/kcptun:latest-arm64v8
 	docker manifest push aguegu/kcptun:latest
 
 privoxy:
