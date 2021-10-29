@@ -13,8 +13,13 @@
   "dependencies": {
     "@godaddy/terminus": "^4.9.0",
     "config": "^3.3.6",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
+    "express-validator": "^6.13.0",
     "express-winston": "^4.2.0",
+    "handlebars": "^4.7.7",
+    "ip": "^1.1.5",
+    "lodash": "^4.17.21",
     "lowdb": "^1.0.0",
     "winston": "^3.3.3"
   },

@@ -1,9 +1,12 @@
+import cors from 'cors';
+import lowdb from 'lowdb';
 import config from 'config';
 import express from 'express';
 import winston from 'winston';
 import { createServer } from 'http';
 import expressWinston from 'express-winston';
 import { createTerminus } from '@godaddy/terminus';
+import FileAsync from 'lowdb/adapters/FileAsync.js';
 
 import './logger.mjs';
 import api from './api/index.mjs';
@@ -18,10 +21,13 @@ const teardownServer = async () => {
 const initServer = async () => {
   const app = express();
 
-  app.use(expressWinston.logger({ winstonInstance: logger }));
-  app.use(express.json());
+  const db = await lowdb(new FileAsync(config.get('db')));
 
-  app.use('/api', await api());
+  app.use(cors());
+  app.use(express.json());
+  app.use(expressWinston.logger({ winstonInstance: logger }));
+
+  app.use('/api', await api({ db }));
 
   const server = createTerminus(createServer(app), {
     signals: ['SIGINT', 'SIGUSR2'],
