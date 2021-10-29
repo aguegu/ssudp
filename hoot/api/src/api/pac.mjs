@@ -23,7 +23,7 @@ export default async ({ db }) => {
     ], async (req, res, next) => {
       try {
         const { proxy } = validate(req);
-        await db.set({ proxy }).write();
+        await db.set('proxy', proxy).write();
         res.status(204).send();
       } catch (e) {
         next(e);

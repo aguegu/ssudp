@@ -10,6 +10,7 @@ import FileAsync from 'lowdb/adapters/FileAsync.js';
 
 import './logger.mjs';
 import api from './api/index.mjs';
+import { AppError } from './errors.mjs';
 
 const logger = winston.loggers.get('main');
 
@@ -28,6 +29,17 @@ const initServer = async () => {
   app.use(expressWinston.logger({ winstonInstance: logger }));
 
   app.use('/api', await api({ db }));
+
+  app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+    /* istanbul ignore else */
+    if (err instanceof AppError) {
+      res.status(err.status).json(err.payload);
+    } else {
+      logger.warn(err.stack);
+      const { message } = err;
+      res.status(500).json({ message });
+    }
+  });
 
   const server = createTerminus(createServer(app), {
     signals: ['SIGINT', 'SIGUSR2'],
