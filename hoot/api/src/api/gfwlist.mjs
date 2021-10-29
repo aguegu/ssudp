@@ -5,22 +5,15 @@ import { Router } from 'express';
 export default async () => {
   const api = Router();
 
-  const loadSource = async () => {
-    const raw = await fs.promises.readFile(config.get('gfwlist'), 'utf8');
-    return Promise.resolve(Buffer.from(raw, 'base64').toString());
-  };
-
-  let src = await loadSource();
-
   api.route('')
-    .put((req, res) => {
-      loadSource().then((lst) => {
-        src = lst;
-      });
-      res.status(204).send();
-    })
-    .get((req, res) => {
-      res.send(src);
+    .get(async (req, res, next) => {
+      try {
+        const raw = await fs.promises.readFile(config.get('gfwlist'), 'utf8');
+        const result = Buffer.from(raw, 'base64').toString();
+        res.json({ result });
+      } catch (e) {
+        next(e);
+      }
     });
 
   return Promise.resolve(api);
