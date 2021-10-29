@@ -12,7 +12,6 @@ export default async ({ db }) => {
   }).write();
 
   const api = Router();
-
   api.route('')
     .put(async (req, res, next) => {
       try {
