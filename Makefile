@@ -10,6 +10,9 @@ else ifeq ($(ARCHITECTURE), aarch64)
 	PLATFORM := arm64v8
 endif
 
+app-hoot:
+	docker build -t aguegu/hoot ./hoot
+
 app-privoxy:
 	docker build -t aguegu/privoxy ./privoxy
 
@@ -42,4 +45,4 @@ clean:
 	docker stop kcptun | true
 	docker rm kcptun | true
 
-.PHONY: app-privoxy app-kcptun privoxy kcptun-server kcptun-client clean manifest-kcptun
+.PHONY: app-hoot app-privoxy app-kcptun privoxy kcptun-server kcptun-client clean manifest-kcptun
