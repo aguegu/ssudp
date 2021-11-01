@@ -6,12 +6,15 @@
   "scripts": {
     "lint": "eslint --ext .mjs src --fix",
     "dev": "NODE_ENV=development nodemon -w src -w config.yaml -x 'npm run lint && node --experimental-json-modules src/index.mjs'",
-    "refresh-build": "json -I -f package.json -e 'this.build=Date.now()'"
+    "refresh-build": "json -I -f package.json -e 'this.build=Date.now()'",
+    "go-release": "json -I -f package.json -e 'this.isReleased=true'",
+    "go-develop": "json -I -f package.json -e 'this.isReleased=false'"
   },
   "author": "aGuegu <weihong.guan@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "@godaddy/terminus": "^4.9.0",
+    "axios": "^0.24.0",
     "config": "^3.3.6",
     "cors": "^2.8.5",
     "express": "^4.17.1",
