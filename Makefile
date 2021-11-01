@@ -26,10 +26,12 @@ manifest-kcptun:
 	docker manifest push aguegu/kcptun:latest
 
 privoxy:
-	docker run -d --name privoxy --restart=unless-stopped aguegu/privoxy
+	docker network create ssudp | true
+	docker run -d --name privoxy --network=ssudp --restart=unless-stopped aguegu/privoxy
 
 kcptun-server:
-	docker create --name kcptun -p 29900:29900/udp --restart=unless-stopped aguegu/kcptun:latest /bin/server -c /etc/kcptun.json
+	docker network create ssudp | true
+	docker create --name kcptun -p 29900:29900/udp --network=ssudp --restart=unless-stopped aguegu/kcptun:latest /bin/server -c /etc/kcptun.json
 	docker cp server.json kcptun:/etc/kcptun.json
 	docker start kcptun
 
