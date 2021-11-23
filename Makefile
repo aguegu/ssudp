@@ -1,5 +1,6 @@
 ARCH := amd64
 PLATFORM := amd64
+PORT := 9000
 
 ARCHITECTURE != uname -m
 ifeq ($(ARCHITECTURE), armv7l)
@@ -32,7 +33,7 @@ privoxy:
 	docker run -d --name privoxy --restart=unless-stopped aguegu/privoxy
 
 kcptun-server:
-	docker create --name kcptun -p 29900:29900/udp --restart=unless-stopped aguegu/kcptun:latest /bin/server -c /etc/kcptun.json
+	docker create --name kcptun -p ${PORT}:29900/udp --restart=unless-stopped aguegu/kcptun:latest /bin/server -c /etc/kcptun.json
 	docker cp server.json kcptun:/etc/kcptun.json
 	docker start kcptun
 
