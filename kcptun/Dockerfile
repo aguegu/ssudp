@@ -1,6 +1,6 @@
-FROM alpine:3.11
+FROM alpine:3.17.1
 
-ARG version=20210922
+ARG version=20221015
 ARG arch=amd64
 
 RUN apk add --no-cache iptables
