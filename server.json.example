@@ -1,8 +1,9 @@
 {
+  "localaddr": ":20000-29999"
   "target": "privoxy:8118",
   "key": "it's a secrect",
-  "crypt": "aes",
-  "mode": "fast",
+  "crypt": "aes-128",
+  "mode": "fast3",
   "mtu": 1400,
   "sndwnd": 2048,
   "rcvwnd": 2048,
@@ -16,7 +17,7 @@
   "resend": 2,
   "nc": 1,
   "sockbuf": 16777217,
-  "smuxver": 1,
+  "smuxver": 2,
   "smuxbuf": 16777217,
   "streambuf": 2097152,
   "keepalive": 10,

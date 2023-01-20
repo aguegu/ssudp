@@ -1,8 +1,8 @@
 {
-  "remoteaddr": "<kcptun-server>:29900",
+  "remoteaddr": "<kcptun-server>:20000-29999",
   "key": "it's a secrect",
-  "crypt": "aes",
-  "mode": "fast",
+  "crypt": "aes-128",
+  "mode": "fast3",
   "mtu": 1400,
   "sndwnd": 128,
   "rcvwnd": 1024,
@@ -16,11 +16,12 @@
   "resend": 2,
   "nc": 1,
   "sockbuf": 16777217,
-  "smuxver": 1,
+  "smuxver": 2,
   "smuxbuf": 16777217,
   "streambuf": 2097152,
   "keepalive": 10,
   "autoexpire": 1800,
   "quiet": false,
-  "tcp": false
+  "tcp": false,
+  "autoexpire": 900
 }

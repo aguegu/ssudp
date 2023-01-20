@@ -35,7 +35,7 @@ privoxy:
 
 kcptun-server:
 	docker network create ssudp | true
-	docker create --name kcptun -p ${PORT}:29900/udp --network=ssudp --restart=unless-stopped aguegu/kcptun:latest /bin/server -c /etc/kcptun.json
+	docker create --name kcptun -p ${PORT}:20000-29999/udp --network=ssudp --restart=unless-stopped aguegu/kcptun:latest /bin/server -c /etc/kcptun.json
 	docker cp server.json kcptun:/etc/kcptun.json
 	docker start kcptun
 
