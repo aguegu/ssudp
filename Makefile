@@ -41,7 +41,9 @@ kcptun-server:
 	docker start kcptun
 
 kcptun-client:
-	docker create --name kcptun -p 12948:12948 --restart=unless-stopped aguegu/kcptun:latest /bin/client -c /etc/kcptun.json
+	docker stop kcptun | true
+	docker rm kcptun | true
+	docker create --name kcptun -p 12948:12948 --restart=unless-stopped aguegu/kcptun:latest-${PLATFORM} /bin/client -c /etc/kcptun.json
 	docker cp client.json kcptun:/etc/kcptun.json
 	docker start kcptun
 
