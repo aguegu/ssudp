@@ -1,6 +1,6 @@
 ARCH := amd64
 PLATFORM := amd64
-PORT := 9000
+PORT := 29900-29999
 
 ARCHITECTURE != uname -m
 ifeq ($(ARCHITECTURE), armv7l)
@@ -20,7 +20,6 @@ app-privoxy:
 app-kcptun:
 	docker build -t aguegu/kcptun:latest-${PLATFORM} --build-arg arch=${ARCH} ./kcptun
 	docker push aguegu/kcptun:latest-${PLATFORM}
-	# docker buildx build --push --platform ${PLATFORM} --tag aguegu/kcptun --build-arg arch=${ARCH} ./kcptun
 
 manifest-kcptun:
 	docker manifest create --amend aguegu/kcptun:latest \
@@ -35,7 +34,9 @@ privoxy:
 
 kcptun-server:
 	docker network create ssudp | true
-	docker create --name kcptun -p ${PORT}:20000-29999/udp --network=ssudp --restart=unless-stopped aguegu/kcptun:latest /bin/server -c /etc/kcptun.json
+	docker stop kcptun | true
+	docker rm kcptun | true
+	docker create --name kcptun -p ${PORT}:${PORT}/udp --network=ssudp --restart=unless-stopped aguegu/kcptun:latest-${PLATFORM} /bin/server -c /etc/kcptun.json
 	docker cp server.json kcptun:/etc/kcptun.json
 	docker start kcptun
 
