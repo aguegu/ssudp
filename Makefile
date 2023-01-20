@@ -1,5 +1,6 @@
 ARCH := amd64
 PLATFORM := amd64
+PORT := 9000
 
 ARCHITECTURE != uname -m
 ifeq ($(ARCHITECTURE), armv7l)
@@ -34,7 +35,7 @@ privoxy:
 
 kcptun-server:
 	docker network create ssudp | true
-	docker create --name kcptun -p 29900:29900/udp --network=ssudp --restart=unless-stopped aguegu/kcptun:latest /bin/server -c /etc/kcptun.json
+	docker create --name kcptun -p ${PORT}:29900/udp --network=ssudp --restart=unless-stopped aguegu/kcptun:latest /bin/server -c /etc/kcptun.json
 	docker cp server.json kcptun:/etc/kcptun.json
 	docker start kcptun
 
