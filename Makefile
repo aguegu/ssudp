@@ -5,10 +5,10 @@ PORT := 29900-29999
 ARCHITECTURE != uname -m
 ifeq ($(ARCHITECTURE), armv7l)
   ARCH := arm7
-	PLATFORM := arm32v7
+  PLATFORM := arm32v7
 else ifeq ($(ARCHITECTURE), aarch64)
   ARCH := arm64
-	PLATFORM := arm64v8
+  PLATFORM := arm64v8
 endif
 
 app-hoot:
@@ -22,10 +22,11 @@ app-kcptun:
 	docker push aguegu/kcptun:latest-${PLATFORM}
 
 manifest-kcptun:
-	docker manifest create --amend aguegu/kcptun:latest \
-		aguegu/kcptun:latest-amd64 \
-		aguegu/kcptun:latest-arm32v7 \
-		aguegu/kcptun:latest-arm64v8
+	docker manifest rm aguegu/kcptun:latest
+	docker manifest create aguegu/kcptun:latest \
+		--amend aguegu/kcptun:latest-amd64 \
+		--amend aguegu/kcptun:latest-arm32v7 \
+		--amend aguegu/kcptun:latest-arm64v8
 	docker manifest push aguegu/kcptun:latest
 
 privoxy:
@@ -36,7 +37,7 @@ kcptun-server:
 	docker network create ssudp | true
 	docker stop kcptun | true
 	docker rm kcptun | true
-	docker create --name kcptun -p ${PORT}:${PORT}/udp --network=ssudp --restart=unless-stopped aguegu/kcptun:latest-${PLATFORM} /bin/server -c /etc/kcptun.json
+	docker create --name kcptun -p ${PORT}:${PORT}/udp --network=ssudp --restart=unless-stopped aguegu/kcptun:latest /bin/server -c /etc/kcptun.json
 	docker cp server.json kcptun:/etc/kcptun.json
 	docker start kcptun
 
