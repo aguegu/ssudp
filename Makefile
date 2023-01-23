@@ -1,6 +1,9 @@
+# user variables
 PORT := 29900-29999
 CLIENTPORT := 12948
+CLIENTNAME := kcptun
 
+# developer variables
 REPO := aguegu/kcptun
 ARCH := amd64
 PLATFORM := amd64
@@ -45,11 +48,11 @@ kcptun-server:
 	docker start kcptun
 
 kcptun-client:
-	docker stop kcptun | true
-	docker rm kcptun | true
-	docker create --name kcptun -p ${CLIENTPORT}:12948 --restart=unless-stopped --pull=always ${REPO}:latest /bin/client -c /etc/kcptun.json
-	docker cp client.json kcptun:/etc/kcptun.json
-	docker start kcptun
+	docker stop ${CLIENTNAME} | true
+	docker rm ${CLIENTNAME} | true
+	docker create --name ${CLIENTNAME} -p ${CLIENTPORT}:12948 --restart=unless-stopped --pull=always ${REPO}:latest /bin/client -c /etc/kcptun.json
+	docker cp client.json ${CLIENTNAME}:/etc/kcptun.json
+	docker start ${CLIENTNAME}
 
 clean:
 	docker stop kcptun | true
