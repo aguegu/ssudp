@@ -37,14 +37,14 @@ kcptun-server:
 	docker network create ssudp | true
 	docker stop kcptun | true
 	docker rm kcptun | true
-	docker create --name kcptun -p ${PORT}:${PORT}/udp --network=ssudp --restart=unless-stopped aguegu/kcptun:latest /bin/server -c /etc/kcptun.json
+	docker create --name kcptun -p ${PORT}:${PORT}/udp --network=ssudp --restart=unless-stopped --pull=always aguegu/kcptun:latest /bin/server -c /etc/kcptun.json
 	docker cp server.json kcptun:/etc/kcptun.json
 	docker start kcptun
 
 kcptun-client:
 	docker stop kcptun | true
 	docker rm kcptun | true
-	docker create --name kcptun -p 12948:12948 --restart=unless-stopped aguegu/kcptun:latest /bin/client -c /etc/kcptun.json
+	docker create --name kcptun -p 12948:12948 --restart=unless-stopped --pull=always aguegu/kcptun:latest /bin/client -c /etc/kcptun.json
 	docker cp client.json kcptun:/etc/kcptun.json
 	docker start kcptun
 
