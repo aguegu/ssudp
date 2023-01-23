@@ -51,7 +51,7 @@ kcptun-client:
 	docker stop ${CLIENTNAME} | true
 	docker rm ${CLIENTNAME} | true
 	docker create --name ${CLIENTNAME} -p ${CLIENTPORT}:12948 --restart=unless-stopped --pull=always ${REPO}:latest /bin/client -c /etc/kcptun.json
-	docker cp client.json ${CLIENTNAME}:/etc/kcptun.json
+	docker cp --follow-link client.json ${CLIENTNAME}:/etc/kcptun.json
 	docker start ${CLIENTNAME}
 
 clean:

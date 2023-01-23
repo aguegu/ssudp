@@ -1,7 +1,7 @@
 {
-  "localaddr": ":20000-29999"
-  "target": "privoxy:8118",
+  "listen": ":29900-29999"
   "key": "it's a secrect",
+  "target": "privoxy:8118",
   "crypt": "aes-128",
   "mode": "fast3",
   "mtu": 1400,
