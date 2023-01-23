@@ -1,6 +1,9 @@
+PORT := 29900-29999
+CLIENTPORT := 12948
+
+REPO := aguegu/kcptun
 ARCH := amd64
 PLATFORM := amd64
-PORT := 29900-29999
 
 ARCHITECTURE != uname -m
 ifeq ($(ARCHITECTURE), armv7l)
@@ -18,16 +21,16 @@ app-privoxy:
 	docker build -t aguegu/privoxy ./privoxy
 
 app-kcptun:
-	docker build -t aguegu/kcptun:latest-${PLATFORM} --build-arg arch=${ARCH} ./kcptun
-	docker push aguegu/kcptun:latest-${PLATFORM}
+	docker build -t ${REPO}:latest-${PLATFORM} --build-arg arch=${ARCH} ./kcptun
+	docker push ${REPO}:latest-${PLATFORM}
 
 manifest-kcptun:
-	docker manifest rm aguegu/kcptun:latest
-	docker manifest create aguegu/kcptun:latest \
-		--amend aguegu/kcptun:latest-amd64 \
-		--amend aguegu/kcptun:latest-arm32v7 \
-		--amend aguegu/kcptun:latest-arm64v8
-	docker manifest push aguegu/kcptun:latest
+	docker manifest rm ${REPO}:latest
+	docker manifest create ${REPO}:latest \
+		--amend ${REPO}:latest-amd64 \
+		--amend ${REPO}:latest-arm32v7 \
+		--amend ${REPO}:latest-arm64v8
+	docker manifest push ${REPO}:latest
 
 privoxy:
 	docker network create ssudp | true
@@ -37,14 +40,14 @@ kcptun-server:
 	docker network create ssudp | true
 	docker stop kcptun | true
 	docker rm kcptun | true
-	docker create --name kcptun -p ${PORT}:${PORT}/udp --network=ssudp --restart=unless-stopped --pull=always aguegu/kcptun:latest /bin/server -c /etc/kcptun.json
+	docker create --name kcptun -p ${PORT}:${PORT}/udp --network=ssudp --restart=unless-stopped --pull=always ${REPO}:latest /bin/server -c /etc/kcptun.json
 	docker cp server.json kcptun:/etc/kcptun.json
 	docker start kcptun
 
 kcptun-client:
 	docker stop kcptun | true
 	docker rm kcptun | true
-	docker create --name kcptun -p 12948:12948 --restart=unless-stopped --pull=always aguegu/kcptun:latest /bin/client -c /etc/kcptun.json
+	docker create --name kcptun -p ${CLIENTPORT}:12948 --restart=unless-stopped --pull=always ${REPO}:latest /bin/client -c /etc/kcptun.json
 	docker cp client.json kcptun:/etc/kcptun.json
 	docker start kcptun
 
