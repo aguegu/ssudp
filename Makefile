@@ -54,6 +54,14 @@ kcptun-client:
 	docker cp --follow-link client.json ${CLIENTNAME}:/etc/kcptun.json
 	docker start ${CLIENTNAME}
 
+kcptun-client-ipv6:
+	docker stop ${CLIENTNAME} | true
+	docker rm ${CLIENTNAME} | true
+	docker network create --ipv6 --subnet 2001:0DB8::/112 ip6net | true
+	docker create --network ip6net --name ${CLIENTNAME} -p ${CLIENTPORT}:12948 --restart=unless-stopped --pull=always ${REPO}:latest /bin/client -c /etc/kcptun.json
+	docker cp --follow-link client.json ${CLIENTNAME}:/etc/kcptun.json
+	docker start ${CLIENTNAME}
+
 clean:
 	docker stop kcptun | true
 	docker rm kcptun | true

@@ -24,3 +24,23 @@ Client
 Then you got a http proxy ([privoxy](https://www.privoxy.org/)) on client listening on port 12948(CLIENTPORT in Makefile).
 
 For more information, just check [Makefile](Makefile).
+
+
+Client (IPv6)
+---
+If the client `remoteaddr` in `client.json` is a IPv6 address, the format would be like `[2001:4860:4860::8888]:19900-19999`. Remember the square brackets around the ip address.
+
+But to access this remote IPv6 address, the docker container has to have IPv6 address too, even though the host should have real IPv6 address at the first place.
+
+Edit `/etc/docker/daemon.json` with
+
+```json
+{
+  "experimental": true,
+  "ip6tables": true
+}
+```
+
+And then `sudo systemctl restart docker` and follow same steps of regular client setup.
+
+Reference: https://docs.docker.com/config/daemon/ipv6/
